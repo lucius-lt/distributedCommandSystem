@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agent Diagnostics</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="shell">
+    <section class="hero">
+        <p class="eyebrow">Local diagnostics</p>
+        <h1>Agent Dashboard</h1>
+        <p>Connected agents can answer typed, allowlisted commands.</p>
+    </section>
+
+    <section class="panel">
+        <h2>Agents</h2>
+        <p class="empty" th:if="${#maps.isEmpty(clients)}">No agents are connected.</p>
+
+        <table th:if="${!#maps.isEmpty(clients)}">
+            <thead>
+            <tr>
+                <th>Agent</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${clients}">
+                <td th:text="${c.key}"></td>
+                <td><span class="status" th:text="${c.value}"></span></td>
+                <td>
+                    <a class="button" th:href="@{'/' + ${c.key} + '/diagnostics'}">Open diagnostics</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
