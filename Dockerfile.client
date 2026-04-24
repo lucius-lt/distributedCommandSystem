@@ -1,0 +1,5 @@
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY target/client-jar-with-dependencies.jar app.jar
+ENV SERVER_URL=wss://distributed-command-system-production.up.railway.app/ws
+ENTRYPOINT ["java", "-jar", "app.jar"]

