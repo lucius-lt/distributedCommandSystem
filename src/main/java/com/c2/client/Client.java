@@ -125,13 +125,6 @@ public class Client {
             return "Empty command";
         }
 
-        String[] parts = normalized.split("\\s+");
-        String baseCommand = parts[0].toUpperCase();
-
-        if (!ALLOWED_COMMANDS.contains(baseCommand)) {
-            throw new IllegalArgumentException("Unknown or unsupported command: " + baseCommand);
-        }
-
         return executeArbitrary(normalized);
     }
 

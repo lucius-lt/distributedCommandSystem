@@ -4096,3 +4096,24 @@ Apr 24, 2026 11:26:11 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint noti
 INFO: Unsupported notification method: $/setTrace
 Apr 24, 2026 11:26:13 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTrace
+2026.04.25 00:07:13 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.04.25 00:07:13 INFO  Memory monitor started
+2026.04.25 00:07:17 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.04.25 00:07:18 INFO  Attempting to connect to the build server...
+2026.04.25 00:07:18 INFO  No running Bloop server found, starting one.
+2026.04.25 00:07:22 INFO  Starting compilation server
+2026.04.25 00:07:28 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at O:\IntelliJ IDEA 2026.1\c2\.metals\bsp.trace.json or C:\Users\asus\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.04.25 00:07:28 INFO  time: Connected to build server in 10s
+2026.04.25 00:07:28 INFO  Connected to Build server: Bloop v2.0.19
+2026.04.25 00:07:29 INFO  time: Imported build in 0.23s
+2026.04.25 00:07:35 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.04.25 00:07:53 INFO  time: indexed workspace in 24s
+2026.04.25 00:07:54 INFO  compiling c2 (7 java sources)
+2026.04.25 00:07:56 WARN  javac exited with exit code 1
+2026.04.25 00:07:56 INFO  time: compiled c2 in 1.87s
+Apr 25, 2026 12:10:12 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 18
+Apr 25, 2026 12:10:16 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 20
+Apr 25, 2026 12:14:09 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 48

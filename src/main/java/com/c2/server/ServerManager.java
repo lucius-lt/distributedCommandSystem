@@ -94,13 +94,6 @@ public class ServerManager {
             return "Empty command";
         }
         
-        String[] parts = cmd.trim().split("\\s+");
-        String baseCommand = parts[0].toUpperCase();
-
-        if (!ALLOWED_COMMAND_SET.contains(baseCommand)) {
-            return "Unsupported command: " + baseCommand;
-        }
-
         WebSocketSession session = handler.getClients().get(agent);
 
         if (session == null || !session.isOpen()) {
