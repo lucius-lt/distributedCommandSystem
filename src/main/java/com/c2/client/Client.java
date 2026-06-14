@@ -1,38 +1,39 @@
 package com.c2.client;
 
-import com.c2.protocol.ProtocolMessage;
+import com.c2.protocol.ProtocolMessage;//imports your custi=om msg class -> used for converting JSON,creating responses,ending msgs,  without this client/server connection is impossible
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 
-import java.net.URI;
-import java.util.Arrays;
+import java.net.URI;//URI- Uniform Resource Identifier
+import java.util.Arrays;// this .array and .list is used for creating list of allowed commands
+
 import java.util.List;
 
 public class Client {
 
-    private static final String DEFAULT_SERVER_URI = "wss://distributed-command-system-production.up.railway.app/ws";
+    private static final String DEFAULT_SERVER_URI = "ws://localhost:8080/ws";// my deployes railway websocket server (default url)
     private static final String SERVER_URI = System.getenv("SERVER_URL") != null
             ? System.getenv("SERVER_URL")
-            : DEFAULT_SERVER_URI;
-    private static final long RECONNECT_DELAY_MS = 3000;
+            : DEFAULT_SERVER_URI;//this function checks -> Did user provide SERVER_URL env variables?  if yes use that else use default Railway URL
+    private static final long RECONNECT_DELAY_MS = 3000;// it is a reconnect delay which is used to prevent rapid connection attempts when the websocket server becomes unavailable .
 
     private static final List<String> ALLOWED_COMMANDS = Arrays.asList(
             "PING", "INFO", "TIME", "HELP", "WHOAMI", "HOSTNAME", "PWD", "DATE", "LS", "DIR"
-    );
+    );// list of allowed commands
 
     public static void main(String[] args) {
         while (true) {
             try {
-                connectAndListen();
-            } catch (Exception e) {
+                connectAndListen();//connects to server and waits for commands
+            } catch (Exception e) {// handle error id disconnected or crashed
                 System.out.println("Disconnected from server, retrying in 3 seconds...");
-                sleepBeforeReconnect();
+                sleepBeforeReconnect();//wait 3 second before trying
             }
         }
     }
 
-    private static void connectAndListen() throws Exception {
+    private static void connectAndListen() throws Exception {//connect method -> this method connects websocket and keeps listening
 
         WebSocketClient client = new WebSocketClient(new URI(SERVER_URI)) {
 

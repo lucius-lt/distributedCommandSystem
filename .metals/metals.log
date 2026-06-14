@@ -4117,3 +4117,91 @@ Apr 25, 2026 12:10:16 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancella
 WARNING: Unmatched cancel notification for request id 20
 Apr 25, 2026 12:14:09 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 WARNING: Unmatched cancel notification for request id 48
+2026.04.25 01:27:21 INFO  compiling c2 (7 java sources)
+2026.04.25 01:27:23 WARN  javac exited with exit code 1
+2026.04.25 01:27:23 INFO  time: compiled c2 in 2.18s
+2026.04.25 02:06:33 INFO  Shutting down server
+2026.04.25 02:06:33 INFO  Memory monitor stopped
+2026.04.25 02:06:33 INFO  shutting down Metals
+2026.04.25 02:06:33 INFO  Shut down connection with build server.
+2026.04.25 02:06:33 INFO  Exiting server
+2026.04.25 23:56:25 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.04.25 23:56:25 INFO  Memory monitor started
+2026.04.25 23:56:27 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.04.25 23:56:27 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:28 INFO  Attempting to connect to the build server...
+2026.04.25 23:56:28 INFO  No running Bloop server found, starting one.
+2026.04.25 23:56:32 INFO  Starting compilation server
+2026.04.25 23:56:33 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:33 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:39 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:39 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:39 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:39 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+Apr 25, 2026 11:56:39 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 10
+Apr 25, 2026 11:56:39 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 11
+Apr 25, 2026 11:56:39 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 12
+2026.04.25 23:56:39 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:40 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at O:\IntelliJ IDEA 2026.1\c2\.metals\bsp.trace.json or C:\Users\asus\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.04.25 23:56:41 INFO  time: Connected to build server in 12s
+2026.04.25 23:56:40 INFO  Connected to Build server: Bloop v2.0.19
+2026.04.25 23:56:41 INFO  no build target found for O:\IntelliJ IDEA 2026.1\c2\src\main\java\com\c2\client\Client.java. Using fallback presentation compiler.
+2026.04.25 23:56:41 INFO  time: Imported build in 0.38s
+2026.04.25 23:56:51 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.04.25 23:56:57 INFO  time: indexed workspace in 15s
+2026.04.25 23:56:58 INFO  compiling c2 (7 java sources)
+2026.04.25 23:56:59 WARN  javac exited with exit code 1
+2026.04.25 23:56:59 INFO  time: compiled c2 in 1.8s
+Apr 25, 2026 11:58:19 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Apr 27, 2026 5:20:28 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint consume
+WARNING: Unkown message type.
+2026.05.04 08:07:35 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.05.04 08:07:35 INFO  Memory monitor started
+2026.05.04 08:07:36 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:07:37 INFO  Attempting to connect to the build server...
+2026.05.04 08:07:37 INFO  No running Bloop server found, starting one.
+2026.05.04 08:07:41 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.05.04 08:07:41 INFO  Memory monitor started
+2026.05.04 08:07:46 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:07:46 INFO  Attempting to connect to the build server...
+2026.05.04 08:07:46 INFO  No running Bloop server found, starting one.
+2026.05.04 08:07:51 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.05.04 08:07:51 INFO  Memory monitor started
+2026.05.04 08:07:56 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:07:56 INFO  Attempting to connect to the build server...
+2026.05.04 08:07:56 INFO  No running Bloop server found, starting one.
+2026.05.04 08:08:00 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.05.04 08:08:00 INFO  Memory monitor started
+2026.05.04 08:08:04 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:08:05 INFO  Attempting to connect to the build server...
+2026.05.04 08:08:05 INFO  No running Bloop server found, starting one.
+2026.05.04 08:08:10 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.05.04 08:08:10 INFO  Memory monitor started
+2026.05.04 08:08:14 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:08:15 INFO  Attempting to connect to the build server...
+2026.05.04 08:08:15 INFO  No running Bloop server found, starting one.
+2026.05.04 08:25:01 INFO  Started: Metals version 1.6.7 in folders 'O:\IntelliJ IDEA 2026.1\c2' for client Antigravity 1.107.0.
+2026.05.04 08:25:01 INFO  Memory monitor started
+2026.05.04 08:25:05 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:25:06 INFO  Attempting to connect to the build server...
+2026.05.04 08:25:06 INFO  No running Bloop server found, starting one.
+2026.05.04 08:25:07 INFO  Starting compilation server
+2026.05.04 08:25:08 INFO  restarted 0 presentation compilers
+2026.05.04 08:25:14 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at O:\IntelliJ IDEA 2026.1\c2\.metals\bsp.trace.json or C:\Users\asus\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.05.04 08:25:14 INFO  time: Connected to build server in 8.77s
+2026.05.04 08:25:14 INFO  Connected to Build server: Bloop v2.0.19
+2026.05.04 08:25:15 INFO  time: Imported build in 0.24s
+2026.05.04 08:25:20 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.04 08:25:27 INFO  time: indexed workspace in 12s
+2026.05.04 08:25:27 INFO  compiling c2 (7 java sources)
+2026.05.04 08:25:29 WARN  javac exited with exit code 1
+2026.05.04 08:25:29 INFO  time: compiled c2 in 1.81s
+2026.05.04 08:48:58 INFO  Shutting down server
+2026.05.04 08:48:58 INFO  Memory monitor stopped
+2026.05.04 08:48:58 INFO  shutting down Metals
+2026.05.04 08:48:58 INFO  Shut down connection with build server.
+2026.05.04 08:48:58 INFO  Exiting server
